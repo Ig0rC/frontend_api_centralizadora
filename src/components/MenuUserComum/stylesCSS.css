@@ -1,0 +1,20 @@
+.attMenu {
+  background-color: #274533 !important;
+  color: white !important;
+  font-weight: 400;
+}
+
+.ant-menu-item-selected {
+  color: #274533 !important;
+  font-weight: 600;
+}
+
+.ant-menu-active {
+  color: #274533 !important;
+  font-weight: 600;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
+  background-color: white !important;
+}
+

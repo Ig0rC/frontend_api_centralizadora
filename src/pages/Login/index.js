@@ -21,7 +21,7 @@ const Login = () => {
 
   useEffect(() => {
     if (menuOpen === true) {
-      history.push('/register');
+      history.push('/gerenciar-empresas');
     }
   }, [menuOpen]);
 

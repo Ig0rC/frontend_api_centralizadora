@@ -3,6 +3,7 @@ import {
 } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { CloudSyncOutlined } from '@ant-design/icons';
 import api from '../../../../services/axios';
 import CollectionCreateForm from '../ModalNovaConfiguracao';
 
@@ -30,31 +31,45 @@ function ConfigurarServer({
       try {
         const response = await api.get(`/config-servidor/lista/${id}`);
 
-        setDatas(response.data);
+        return setDatas(response.data);
       } catch (error) {
-        toast.error('Não foi possível carregar as configurações do usuário, por favor entre em contato com a softvendas');
+        if (error.response) {
+          const { data: { mensagem } } = error.response;
+
+          return toast.error(`${mensagem}`);
+        }
+        return toast.error('Por favor, entre em contato com a softvendas');
       }
     })();
   }, [reload]);
 
   const handleSelect = async (value) => {
-    const response = await api.get(`/config-servidor/${value}`);
+    try {
+      const response = await api.get(`/config-servidor/${value}`);
 
-    const { banco_dados, dns, typeApp } = response.data;
+      const { banco_dados, dns, typeApp } = response.data;
 
-    setTypeApp(typeApp);
-    setDns(dns);
-    setHost(banco_dados.host);
-    setPorta(banco_dados.porta);
-    setUsuario(banco_dados.usuario);
-    setSenha(banco_dados.senha);
-    setNomeBanco(banco_dados.nome_db);
-    setIdConfig(value);
+      setTypeApp(typeApp);
+      setDns(dns);
+      setHost(banco_dados.host);
+      setPorta(banco_dados.porta);
+      setUsuario(banco_dados.usuario);
+      setSenha(banco_dados.senha);
+      setNomeBanco(banco_dados.nome_db);
+      return setIdConfig(value);
+    } catch (error) {
+      if (error.response) {
+        const { data: { mensagem } } = error.response;
+
+        return toast.error(`${mensagem}`);
+      }
+      return toast.error('Por favor, entre em contato com a softvendas');
+    }
   };
 
   const handleSubmit = async () => {
     try {
-      const { data: { success } } = await api.put(`/config-servidor/${idConfig}`, {
+      const { data: { mensagem } } = await api.put(`/config-servidor/${idConfig}`, {
         host: $host,
         porta: $porta,
         usuario: $usuario,
@@ -64,12 +79,12 @@ function ConfigurarServer({
         nome_db: $nomeBanco,
       });
       setReload(reload !== true);
-      return toast.success(`${success}`);
+      return toast.success(`${mensagem}`);
     } catch (error) {
       if (error.response) {
-        const { data: { errors } } = error.response;
+        const { data: { mensagem } } = error.response;
 
-        return toast.error(`${errors}`);
+        return toast.error(`${mensagem}`);
       }
       return toast.error('Por favor, entre em contato com a softvendas');
     }
@@ -77,7 +92,7 @@ function ConfigurarServer({
 
   const onCreate = async (values) => {
     try {
-      await api.post(`config-servidor/${id}`, {
+      const { data: { mensagem } } = await api.post(`config-servidor/${id}`, {
         type_app: values.type_app,
         dns: values.DNS,
         host: values.host,
@@ -89,18 +104,32 @@ function ConfigurarServer({
 
       setReload(reload !== true);
       setVisible(false);
-      return toast.success('Criado com sucesso');
+      return toast.success(`${mensagem}`);
+    } catch (error) {
+      setVisible(false);
+      if (error.response) {
+        const { data: { mensagem } } = error.response;
+
+        return toast.error(`${mensagem}`);
+      }
+
+      return toast.error('Por favor, entre em contato com a SoftVendas');
+    }
+  };
+
+  const handleSync = async () => {
+    try {
+      const { data: { mensagem } } = await api.post(`/sicronizar-servidor/${idConfig}`);
+
+      return toast.success(`${mensagem}`);
     } catch (error) {
       if (error.response) {
-        const { data: { errors } } = error.response;
-
-        setVisible(false);
-
-        return toast.error(`${errors}`);
+        const { data: { mensagem } } = error.response;
+        return toast.error(`${mensagem}`);
       }
-      toast.error('Algo aconteceu, entre em contato com a softvendas');
+
+      return toast.error('Por favor, entre em contato com a SoftVendas');
     }
-    return setVisible(false);
   };
 
   return (
@@ -216,6 +245,7 @@ function ConfigurarServer({
               type="text"
               id="tipo_app"
               value={$typeApp}
+              disabled
               onChange={({ target: { value } }) => setTypeApp(value)}
             />
           </label>
@@ -247,6 +277,21 @@ function ConfigurarServer({
             htmlType="submit"
           >
             Salvar
+          </Button>
+          <Button
+            style={{
+              maxWidth: '200px',
+              width: '100%',
+              background: '#5b00ff',
+              display: 'flex',
+              alignContent: 'center',
+              justifyContent: 'center',
+            }}
+            type="primary"
+            onClick={handleSync}
+            htmlType="button"
+          >
+            sincronizar <CloudSyncOutlined style={{ fontSize: 18 }} />
           </Button>
         </ContainerButton>
       </Form>

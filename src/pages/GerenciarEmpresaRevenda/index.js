@@ -3,9 +3,12 @@ import { FileSearchOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import SectionBar from '../../components/container';
+import { toast } from 'react-toastify';
+import { cnpj } from 'cpf-cnpj-validator';
 import axios from '../../services/axios';
-import { ContainerOption, DivNovo, Container } from './styles';
+import {
+  ContainerOption, DivNovo, Container, Section,
+} from './styles';
 import TitlePage from '../../components/TitlePage';
 
 const { Search } = Input;
@@ -13,19 +16,24 @@ const { Search } = Input;
 const columns = [
   {
     title: 'CNPJ',
-    dataIndex: 'cnpj_empresa',
-    width: 150,
+    width: 300,
+    render: (value) => {
+      const { cnpj_empresa } = value;
+      return (
+        <p>{cnpj.format(cnpj_empresa)}</p>
+      );
+    },
   },
   {
     title: 'Nome Fantasia',
     dataIndex: 'nome_fantasia',
-    width: 400,
+    width: 300,
     key: 'nome_fantasia',
   },
   {
     title: 'Razão Social',
     dataIndex: 'razao_social',
-    width: 400,
+    width: 300,
   },
   {
     title: 'visualizar',
@@ -60,10 +68,19 @@ function GerenciarEmpresaRevenda() {
 
   useEffect(() => {
     (async () => {
-      const response = await axios.get('/empresa-gestor');
+      try {
+        const response = await axios.get('/empresa-gestor');
 
-      setData(response.data);
-      setTotalPage(response.data.length);
+        setData(response.data);
+        return setTotalPage(response.data.length);
+      } catch (error) {
+        if (error.response) {
+          const { data: { mensagem } } = error.response;
+
+          return toast.error(`${mensagem}`);
+        }
+        return toast.error('Por favor, entre em contato com a softvendas');
+      }
     })();
   }, []);
 
@@ -93,10 +110,11 @@ function GerenciarEmpresaRevenda() {
   };
 
   return (
-    <SectionBar>
-      <TitlePage title="Empresas Revendas" />
-
+    <Section>
       <Container>
+
+        <TitlePage title="Empresas Revendas" />
+
         <ContainerOption>
           <div />
           <div>
@@ -113,8 +131,15 @@ function GerenciarEmpresaRevenda() {
 
           <DivNovo>
             <Link to="/registrar-empresa-revenda">
-              <Button type="primary">
-                Novo <AddCircleOutlineIcon />
+              <Button
+                size="large"
+                type="primary"
+                color="dark"
+                style={{ backgroundColor: '#274533' }}
+              >
+                <p style={{ display: 'flex' }}>
+                  Novo <AddCircleOutlineIcon style={{ marginLeft: 2 }} />
+                </p>
               </Button>
             </Link>
           </DivNovo>
@@ -129,7 +154,7 @@ function GerenciarEmpresaRevenda() {
           rowKey="_id"
         />
       </Container>
-    </SectionBar>
+    </Section>
   );
 }
 

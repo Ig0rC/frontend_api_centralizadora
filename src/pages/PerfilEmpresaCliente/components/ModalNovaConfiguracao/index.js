@@ -16,10 +16,14 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
     (async () => {
       try {
         const { data } = await axios.get('/apptype');
-        setData(data);
+        return setData(data);
       } catch (error) {
-        const { data: mensagem } = error.response;
-        toast.error(`${mensagem}`);
+        if (error.response) {
+          const { data: { mensagem } } = error.response;
+
+          return toast.error(`${mensagem}`);
+        }
+        return toast.error('Por favor, entre em contato com a softvendas');
       }
     })();
   }, []);

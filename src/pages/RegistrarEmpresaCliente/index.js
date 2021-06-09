@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Input } from 'antd';
-import { BankOutlined, FormOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import { Input, Button } from 'antd';
 import { toast } from 'react-toastify';
 import { cnpj } from 'cpf-cnpj-validator';
 import axios from '../../services/axios';
 import TitlePage from '../../components/TitlePage';
 import {
-  SectionBar, ContainerForm, Button, Required, Information,
+  SectionBar, ContainerForm, Required, Information,
 } from './styles';
 import history from '../../services/history';
 
@@ -25,7 +24,7 @@ const RegisterEmpresaCliente = () => {
         return toast.error('Preencha todos campos');
       }
 
-      const { data: { success, empresa } } = await axios.post('empresa-cliente', {
+      const { data: { mensagem, empresa } } = await axios.post('empresa-cliente', {
         cnpj_cliente: $cnpj,
         nome_fantasia: fantasia,
         revenda: true,
@@ -34,19 +33,12 @@ const RegisterEmpresaCliente = () => {
         qtd_licenca: licenca,
       });
 
-      toast.success(`${success}`);
+      toast.success(`${mensagem}`);
       return history.push(`/register/${empresa}`);
     } catch (error) {
       if (error.response) {
-        const { status, data: { errors } } = error.response;
-
-        if (status === 409) {
-          return toast.error(`${errors}`);
-        }
-
-        if (status === 400) {
-          return toast.error(`${errors}`);
-        }
+        const { data: { mensagem } } = error.response;
+        return toast.error(`${mensagem}`);
       }
 
       return toast.error('Por favor, entre em contato com a SoftVendas');
@@ -58,7 +50,7 @@ const RegisterEmpresaCliente = () => {
       <SectionBar>
 
         <ContainerForm>
-          <TitlePage title="Incluir Cliente App" />
+          <TitlePage title="Cadastrar Cliente" />
           <form onSubmit={handleSubmit}>
             <div>
               <Information>
@@ -67,54 +59,66 @@ const RegisterEmpresaCliente = () => {
               </Information>
 
               <div>
+                <p>CNPJ: </p>
                 <Input
                   onChange={({ target: { value } }) => setCnpj(value)}
                   value={cnpj.format($cnpj)}
                   size="large"
                   placeholder="CNPJ"
                   type="text"
-                  prefix={<BankOutlined />}
                 />
               </div>
 
               <div>
+                <p>Nome Fantasia: </p>
                 <Input
                   onChange={({ target: { value } }) => setFantasia(value)}
                   size="large"
                   placeholder="nome Fantasia"
-                  prefix={<FormOutlined />}
                 />
               </div>
 
               <div>
+                <p>Razão Social: </p>
                 <Input
                   onChange={({ target: { value } }) => setRazaoSocial(value)}
                   size="large"
                   placeholder="razão Social"
-                  prefix={<FormOutlined />}
                 />
               </div>
 
               <div>
+                <p>Código da empresa: </p>
                 <Input
                   onChange={({ target: { value } }) => setCdEmpresa(value)}
                   size="large"
                   placeholder="código da empresa do sistema"
                   type="number"
-                  prefix={<FormOutlined />}
                 />
               </div>
               <div>
+                <p>Quantidades de Licenças: </p>
                 <Input
                   onChange={({ target: { value } }) => setLicenca(value)}
                   size="large"
                   placeholder="licenças"
                   type="number"
-                  prefix={<UsergroupAddOutlined />}
                 />
               </div>
 
-              <Button type="submit">criar empresa</Button>
+              <Button
+                size="large"
+                type="primary"
+                htmlType="submit"
+                color="dark"
+                style={{
+                  backgroundColor: '#274533', border: 'none', display: 'flex', justifyContent: 'center',
+                }}
+              >
+                <p style={{ display: 'flex' }}>
+                  Criar
+                </p>
+              </Button>
             </div>
           </form>
         </ContainerForm>

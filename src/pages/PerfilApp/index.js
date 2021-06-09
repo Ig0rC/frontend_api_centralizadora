@@ -16,6 +16,7 @@ function PerfilApp({ match }) {
   const [$nome, setNome] = useState('');
   const [$codigoConstumizado, setCodigoConstumizado] = useState('');
   const { params: { id } } = match;
+
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
@@ -29,16 +30,29 @@ function PerfilApp({ match }) {
       });
       return toast.success(`${mensagem}`);
     } catch (error) {
-      const { data: { mensagem } } = error.response;
-      return toast.error(`${mensagem}`);
+      if (error.response) {
+        const { data: { mensagem } } = error.response;
+
+        return toast.error(`${mensagem}`);
+      }
+      return toast.error('Por favor, entre em contato com a softvendas');
     }
   };
 
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get(`/apptype/${id}`);
-      setNome(data.nome);
-      setCodigoConstumizado(data.codigo_constumizado);
+      try {
+        const { data } = await axios.get(`/apptype/${id}`);
+        setNome(data.nome);
+        return setCodigoConstumizado(data.codigo_constumizado);
+      } catch (error) {
+        if (error.response) {
+          const { data: { mensagem } } = error.response;
+
+          return toast.error(`${mensagem}`);
+        }
+        return toast.error('Por favor, entre em contato com a softvendas');
+      }
     })();
   }, []);
 

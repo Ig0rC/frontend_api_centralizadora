@@ -2,11 +2,23 @@ import styled from 'styled-components';
 
 export const SectionBar = styled.section`
   flex: 1;
-  background-color: #ececec;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const Container = styled.div`
+ background-color: white;
+  max-width: 1700px;
+  max-height: 900px;
+  width: 100%;
   height: 100%;
+  border-radius: 5px;
+  margin: 10px;
+  overflow: auto;
+
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
 `;
 
 export const ContainerOption = styled.div`
@@ -44,21 +56,4 @@ export const DivNovo = styled.div`
     justify-content: space-around;
     align-items: center;
   }
-`;
-
-export const Container = styled.div`
-  flex: 1;
-  max-width: 1700px;
-  margin: 0 auto;
-  margin: 10px !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  border-radius: 5px;
-  background-color: white;
-  flex-wrap: wrap;
-
-  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
-  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
 `;

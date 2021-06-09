@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Input } from 'antd';
+import { Table, Input, Button } from 'antd';
 import { FileSearchOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { toast } from 'react-toastify';
+import { cnpj } from 'cpf-cnpj-validator';
 import {
   SectionBar, Container, ContainerOption, DivNovo,
 } from './styles';
@@ -20,24 +22,30 @@ const columns = [
   },
   {
     title: 'CNPJ',
-    dataIndex: 'cnpj_cliente',
-    width: 150,
+    fixed: 'right',
+    width: 300,
+    render: (value) => {
+      const { cnpj_cliente } = value;
+      return (
+        <p>{cnpj.format(cnpj_cliente)}</p>
+      );
+    },
   },
   {
     title: 'Nome Fantasia',
     dataIndex: 'nome_fantasia',
-    width: 400,
+    width: 300,
     key: 'nome_fantasia',
   },
   {
     title: 'Razão Social',
     dataIndex: 'razao_social',
-    width: 400,
+    width: 300,
   },
   {
     title: 'Qtd. Licença',
     dataIndex: 'qtd_licenca',
-
+    width: 150,
   },
   {
     title: 'visualizar',
@@ -71,10 +79,19 @@ const GerenciarEmpresa = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await axios.get('/empresa-cliente');
+      try {
+        const response = await axios.get('/empresa-cliente');
 
-      setData(response.data);
-      setTotalPage(response.data.length);
+        setData(response.data);
+        return setTotalPage(response.data.length);
+      } catch (error) {
+        if (error.response) {
+          const { data: { mensagem } } = error.response;
+
+          return toast.error(`${mensagem}`);
+        }
+        return toast.error('Por favor, entre em contato com a softvendas');
+      }
     })();
   }, []);
 
@@ -125,9 +142,16 @@ const GerenciarEmpresa = () => {
 
           <DivNovo>
             <Link to="/register-empresa-cliente">
-              <button type="submit">
-                Novo <AddCircleOutlineIcon />
-              </button>
+              <Button
+                size="large"
+                type="primary"
+                color="dark"
+                style={{ backgroundColor: '#274533' }}
+              >
+                <p style={{ display: 'flex' }}>
+                  Novo <AddCircleOutlineIcon style={{ marginLeft: 2 }} />
+                </p>
+              </Button>
             </Link>
           </DivNovo>
 

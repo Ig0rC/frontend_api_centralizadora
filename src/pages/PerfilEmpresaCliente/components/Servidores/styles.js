@@ -23,8 +23,13 @@ export const ContainerInput = styled.div`
 
 export const ContainerButton = styled.div`
   padding: 10px;
-  justify-content: center;
+  justify-content: space-around;
   display: flex;
+  flex-wrap: wrap;
+
+  button {
+    margin: 5px;
+  }
 `;
 
 export const ContainerHeader = styled.div`

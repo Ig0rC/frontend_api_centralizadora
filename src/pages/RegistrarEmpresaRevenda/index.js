@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Input, Switch } from 'antd';
-import { BankOutlined, FormOutlined } from '@ant-design/icons';
+import { Input, Switch, Button } from 'antd';
 import { toast } from 'react-toastify';
 import { cnpj } from 'cpf-cnpj-validator';
 import axios from '../../services/axios';
 import TitlePage from '../../components/TitlePage';
 import {
-  SectionBar, ContainerForm, Button, Required, Information, DivSwitch,
+  SectionBar,
+  ContainerForm,
+  Required,
+  Information, DivSwitch,
 } from './styles';
 import history from '../../services/history';
 
@@ -28,26 +30,19 @@ const RegisterEmpresaRevenda = () => {
         return toast.error('Preencha todos campos');
       }
 
-      const { data: { success, empresa } } = await axios.post('empresa-gestor', {
+      const { data: { mensagem, empresa } } = await axios.post('empresa-gestor', {
         cnpj_empresa: $cnpj,
         nome_fantasia: $nomeFantasia,
         razao_social: $razaoSocial,
         revenda: $revenda,
       });
 
-      toast.success(`${success}`);
+      toast.success(`${mensagem}`);
       return history.push(`/perfil-empresa-revenda/${empresa}`);
     } catch (error) {
       if (error.response) {
-        const { status, data: { errors } } = error.response;
-
-        if (status === 409) {
-          return toast.error(`${errors}`);
-        }
-
-        if (status === 400) {
-          return toast.error(`${errors}`);
-        }
+        const { data: { mensagem } } = error.response;
+        return toast.error(`${mensagem}`);
       }
 
       return toast.error('Por favor, entre em contato com a SoftVendas');
@@ -79,7 +74,6 @@ const RegisterEmpresaRevenda = () => {
                   size="large"
                   placeholder="CNPJ"
                   type="text"
-                  prefix={<BankOutlined />}
                 />
               </div>
 
@@ -89,7 +83,6 @@ const RegisterEmpresaRevenda = () => {
                   onChange={({ target: { value } }) => setNomeFantasia(value)}
                   size="large"
                   placeholder="nome Fantasia"
-                  prefix={<FormOutlined />}
                 />
               </div>
 
@@ -99,7 +92,6 @@ const RegisterEmpresaRevenda = () => {
                   onChange={({ target: { value } }) => setRazaoSocial(value)}
                   size="large"
                   placeholder="razão Social"
-                  prefix={<FormOutlined />}
                 />
               </div>
 
@@ -112,7 +104,19 @@ const RegisterEmpresaRevenda = () => {
                 />
               </DivSwitch>
 
-              <Button type="submit">criar empresa</Button>
+              <Button
+                size="large"
+                type="primary"
+                htmlType="submit"
+                color="dark"
+                style={{
+                  backgroundColor: '#274533', border: 'none', display: 'flex', justifyContent: 'center',
+                }}
+              >
+                <p style={{ display: 'flex' }}>
+                  Criar
+                </p>
+              </Button>
             </div>
           </form>
         </ContainerForm>

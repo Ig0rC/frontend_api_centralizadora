@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import {
   Form, Input, Button, Switch,
 } from 'antd';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-// import SectionBar from '../../components/container';
 import TitlePage from '../../components/TitlePage';
 import {
-  Section, ContainerInput, ContainerButton, Container,
+  Section, ContainerInput, ContainerButton, Container, ButtonUser,
 } from './styles';
 import api from '../../services/axios';
 
@@ -44,10 +44,14 @@ function PerfilEmpresaRevenda({ match }) {
         revenda,
       });
 
-      toast.success(`${mensagem}`);
+      return toast.success(`${mensagem}`);
     } catch (error) {
-      const { data: { errors } } = error.response;
-      toast.error(`${errors}`);
+      if (error.response) {
+        const { data: { mensagem } } = error.response;
+        return toast.error(`${mensagem}`);
+      }
+
+      return toast.error('Por favor, entre em contato com a SoftVendas');
     }
   };
 
@@ -138,13 +142,23 @@ function PerfilEmpresaRevenda({ match }) {
           </ContainerInput>
 
           <ContainerButton>
-            <Button
-              style={{ maxWidth: '200px', width: '100%' }}
-              type="primary"
-              htmlType="submit"
-            >
-              Salvar
-            </Button>
+            <div style={{ flex: 1, textAlign: 'center' }}>
+              <Button
+                style={{ maxWidth: '200px', width: '100%' }}
+                type="primary"
+                htmlType="submit"
+              >
+                Salvar
+              </Button>
+            </div>
+
+            <div style={{ flex: 1, textAlign: 'center' }}>
+              <Link to={`/gerenciar-usuarios-gestores/${id}`}>
+                <ButtonUser type="button">
+                  Usuários
+                </ButtonUser>
+              </Link>
+            </div>
           </ContainerButton>
         </Form>
       </Container>

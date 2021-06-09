@@ -1,27 +1,52 @@
+import { useEffect, useState } from 'react';
 import { Table, Input, Button } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { FileSearchOutlined } from '@ant-design/icons';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-
 import { toast } from 'react-toastify';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { Link } from 'react-router-dom';
+import TitlePage from '../../components/TitlePage';
 import axios from '../../services/axios';
 import {
-  Section, Container, DivSearch,
+  Section,
+  Container,
+  DivNovo,
+  ContainerOption,
 } from './styles';
-import TitlePage from '../../components/TitlePage';
+
+const { Search } = Input;
 
 const columns = [
-  {
-    title: 'Código App',
-    dataIndex: 'codigo_constumizado',
-    width: 150,
-
-  },
   {
     title: 'Nome',
     dataIndex: 'nome',
     width: 150,
+  },
+  {
+    title: 'Usuário',
+    dataIndex: 'usuario',
+    width: 150,
+  },
+  {
+    title: 'Administrador',
+    width: 100,
+
+    render: (value) => {
+      const { master } = value;
+      return (
+        master === true ? <p>Sim</p> : <p>Não</p>
+      );
+    },
+  },
+  {
+    title: 'Ativo',
+    width: 100,
+
+    render: (value) => {
+      const { ativo } = value;
+      return (
+        ativo === true ? <p>Sim</p> : <p>Não</p>
+      );
+    },
   },
   {
     title: 'visualizar',
@@ -32,7 +57,7 @@ const columns = [
       const { _id } = value;
       return (
         <Link
-          to={`/perfil-app/${_id}`}
+          to={`/perfil-usuarios-gestores/${_id}`}
         >
           <FileSearchOutlined
             style={{
@@ -45,22 +70,21 @@ const columns = [
   },
 ];
 
-const { Search } = Input;
-
-function GerenciarApp() {
+function GerenciarUsuariosGestores({ match }) {
   const [$data, setData] = useState([]);
-  const [$dataFilter, setDataFilter] = useState([]);
-  const [$searchUser, setSearchUser] = useState('');
   const [$loading, setLoading] = useState(false);
-  const [$pageSize, setPageSize] = useState(6);
+  const [$dataFilter, setDataFilter] = useState(null);
+  const [$searchUser, setSearchUser] = useState('');
   const [$totalPage, setTotalPage] = useState(0);
+  const [$pageSize, setPageSize] = useState(7);
+  const { params: { id } } = match;
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get('/apptype');
-        setTotalPage(data.length);
-        return setData(data);
+        const { data } = await axios.get(`/usuario-admin/${id}`);
+        setData(data);
+        return setTotalPage(data.length);
       } catch (error) {
         if (error.response) {
           const { data: { mensagem } } = error.response;
@@ -75,21 +99,18 @@ function GerenciarApp() {
   useEffect(() => {
     if ($searchUser !== '') {
       setLoading(true);
-
       const filterArray = $data.filter((value) => {
-        const customSearchUser = $searchUser
-          .normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        const customSearchUser = $searchUser.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
         return (
           value.nome.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().search(customSearchUser) > -1
-            || value.codigo_constumizado.search(customSearchUser) > -1 ? value : ''
+          || value.usuario.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().search(customSearchUser) > -1
         );
       });
 
       setLoading(false);
       return setDataFilter(filterArray);
     }
-
     return setDataFilter(null);
   }, [$searchUser]);
 
@@ -101,48 +122,44 @@ function GerenciarApp() {
   return (
     <Section>
       <Container>
-        <TitlePage title="Gerenciar App" />
-        <DivSearch>
+        <TitlePage title="Usuários Gestores" />
 
-          <div style={{ flex: 1 }} />
-
-          <div style={{ flex: 1 }}>
+        <ContainerOption>
+          <div />
+          <div>
             <Search
               style={{
-                maxWidth: 600, padding: 10, width: '100%',
+                maxWidth: 500, flex: 1, width: '100%',
               }}
-              loading={$loading}
-              onChange={({ target: { value } }) => setSearchUser(value)}
               enterButton="Buscar"
               size="large"
+              loading={$loading}
+              onChange={({ target: { value } }) => setSearchUser(value)}
             />
           </div>
 
-          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-            <Link to="/registrar-app">
-
+          <DivNovo>
+            <Link to={`/registrar-usuarios-gestores/${id}`}>
               <Button
                 size="large"
                 type="primary"
                 color="dark"
-                style={{ backgroundColor: '#274533' }}
+                style={{ backgroundColor: '#274533', border: 'none' }}
               >
                 <p style={{ display: 'flex' }}>
                   Novo <AddCircleOutlineIcon style={{ marginLeft: 2 }} />
                 </p>
               </Button>
-
             </Link>
-          </div>
+          </DivNovo>
 
-        </DivSearch>
+        </ContainerOption>
 
         <Table
-          style={{ width: '100%', padding: 10 }}
+          style={{ width: '100%', padding: 10, color: 'black' }}
           columns={columns}
-          loadgin={$loading}
-          pagination={{ pageSize: $pageSize, total: $totalPage }}
           dataSource={$dataFilter || $data}
+          pagination={{ pageSize: $pageSize, total: $totalPage }}
           onChange={paginationCustom}
           rowKey="_id"
         />
@@ -151,4 +168,4 @@ function GerenciarApp() {
   );
 }
 
-export default GerenciarApp;
+export default GerenciarUsuariosGestores;

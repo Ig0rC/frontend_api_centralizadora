@@ -10,12 +10,13 @@ export const Header = styled.section`
   div {
     flex: 1;
     display: flex;
-    flex-wrap: wrap-reverse;
     justify-content: space-between;
     align-items: center;
 
-    @media(max-width: 439px){
+    @media(max-width: 555px){
+      flex-direction: column-reverse;
       justify-content: center;
+      text-align: center;
     }
   }
 

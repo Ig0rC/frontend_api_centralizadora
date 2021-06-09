@@ -29,8 +29,12 @@ function RegistrarApp() {
         toast.success(`${mensagem}`);
         return history.push(`/perfil-app/${id}`);
       } catch (error) {
-        const { data: { mensagem } } = error.response;
-        return toast.error(mensagem);
+        if (error.response) {
+          const { data: { mensagem } } = error.response;
+          return toast.error(`${mensagem}`);
+        }
+
+        return toast.error('Por favor, entre em contato com a SoftVendas');
       }
     })();
   };

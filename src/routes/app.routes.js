@@ -15,6 +15,12 @@ import GerenciarApp from '../pages/GerenciarApp';
 import RegistrarApp from '../pages/RegistrarApp';
 import PerfilApp from '../pages/PerfilApp';
 import GerenciarUsuariosVendedores from '../pages/GerenciarUsuariosVendedores';
+import PerfilUsuarioVendedor from '../pages/PerfilUsuarioVendedor';
+import GerenciarUsuariosGestores from '../pages/GerenciarUsuariosGestores';
+import RegistrarUsuarioGestor from '../pages/RegistrarUsuarioGestor';
+import PerfilUsuarioGestor from '../pages/PerfilUsuarioGestor';
+import ResetarSenha from '../pages/ResetarSenha';
+import MenuUserComum from '../components/MenuUserComum/Menu';
 
 function CustomRoute({ isPrivate, ...rest }) {
   const { loading, authorization } = useContext(Context);
@@ -24,7 +30,7 @@ function CustomRoute({ isPrivate, ...rest }) {
   }
 
   if (isPrivate && !authorization) {
-    return <Redirect to="/login" />;
+    return <Redirect to="/" />;
   }
 
   return <Route {...rest} />;
@@ -37,6 +43,7 @@ function AppRoutes() {
       <CustomRoute exact path="/" component={Login} />
       <Container>
         <MenuApp />
+        <MenuUserComum />
         <CustomRoute isPrivate exact path="/register-empresa-cliente" component={RegistrarEmpresaCliente} />
         <CustomRoute isPrivate exact path="/gerenciar-empresas" component={GerenciarEmpresa} />
         <CustomRoute isPrivate exact path="/register/:id" component={CadastrarEmpresa} />
@@ -46,7 +53,12 @@ function AppRoutes() {
         <CustomRoute isPrivate exact path="/gerenciar-app" component={GerenciarApp} />
         <CustomRoute isPrivate exact path="/registrar-app" component={RegistrarApp} />
         <CustomRoute isPrivate exact path="/perfil-app/:id" component={PerfilApp} />
-        <CustomRoute isPrivate exact path="/gerenciar-usuarios/:id" component={GerenciarUsuariosVendedores} />
+        <CustomRoute isPrivate exact path="/gerenciar-usuarios-vendedores/:id" component={GerenciarUsuariosVendedores} />
+        <CustomRoute isPrivate exact path="/perfil-usuario/:id" component={PerfilUsuarioVendedor} />
+        <CustomRoute isPrivate exact path="/gerenciar-usuarios-gestores/:id" component={GerenciarUsuariosGestores} />
+        <CustomRoute isPrivate exact path="/registrar-usuarios-gestores/:id" component={RegistrarUsuarioGestor} />
+        <CustomRoute isPrivate exact path="/perfil-usuarios-gestores/:id" component={PerfilUsuarioGestor} />
+        <CustomRoute isPrivate exact path="/resetar-senha/" component={ResetarSenha} />
       </Container>
     </Switch>
 

@@ -47,6 +47,17 @@ export const ContainerInput = styled.div`
 
 export const ContainerButton = styled.div`
   padding: 10px;
-  justify-content: center;
   display: flex;
+  justify-content: space-between;
+`;
+
+export const ButtonUser = styled.button`
+  flex: 1;
+  color: white !important;
+  background-color: #234531;
+  max-width: 200px;
+  width: 100%;
+  max-height: 32px;
+  height: 100%;
+  font-weight: 400;
 `;
