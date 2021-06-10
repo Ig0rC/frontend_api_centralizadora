@@ -5,7 +5,7 @@ import { Context } from '../../Context/authcontext';
 import {
   Container,
   ContainerCenter,
-  ContainerButton,
+  // ContainerButton,
   Button, Input, ContainerInput, LogoS, ContainerImage, Background,
 } from './styles';
 
@@ -25,7 +25,8 @@ const Login = () => {
     }
   }, [menuOpen]);
 
-  function entrar() {
+  function entrar(e) {
+    e.preventDefault();
     if (user === null || password === null) {
       return toast.error('Preencha os campos');
     }
@@ -40,7 +41,7 @@ const Login = () => {
             <LogoS src={logo} alt="" />
           </ContainerImage>
 
-          <ContainerInput>
+          <ContainerInput onSubmit={entrar}>
             <Input
               onChange={({ target: { value } }) => setUser(value)}
               placeholder="usuário"
@@ -51,12 +52,10 @@ const Login = () => {
               placeholder="senha"
               type="password"
             />
+
+            <Button type="submit">entrar</Button>
+
           </ContainerInput>
-
-          <ContainerButton>
-            <Button type="submit" onClick={entrar}>entrar</Button>
-          </ContainerButton>
-
         </ContainerCenter>
       </Container>
     </Background>

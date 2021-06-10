@@ -27,7 +27,7 @@ export const ContainerCenter = styled.div`
   border-radius: 5px;
 `;
 
-export const ContainerInput = styled.div`
+export const ContainerInput = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-around;

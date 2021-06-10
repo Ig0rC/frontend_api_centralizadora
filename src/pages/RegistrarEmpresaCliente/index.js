@@ -11,26 +11,32 @@ import history from '../../services/history';
 
 const RegisterEmpresaCliente = () => {
   const [$cnpj, setCnpj] = useState('');
-  const [razaoSocial, setRazaoSocial] = useState('');
-  const [fantasia, setFantasia] = useState('');
-  const [cdEmpresa, setCdEmpresa] = useState('');
-  const [licenca, setLicenca] = useState('');
+  const [$razaoSocial, setRazaoSocial] = useState('');
+  const [$fantasia, setFantasia] = useState('');
+  const [$cdEmpresa, setCdEmpresa] = useState('');
+  const [$licenca, setLicenca] = useState('');
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
 
-      if (!cnpj || !razaoSocial || !fantasia || !cdEmpresa || !licenca) {
+      if (!cnpj.isValid($cnpj)) {
+        return toast.error('CNPJ inválido');
+      }
+
+      if (!$cnpj || !$razaoSocial || !$fantasia || !$cdEmpresa || !$licenca) {
         return toast.error('Preencha todos campos');
       }
 
+      const cnpjClear = $cnpj.replace(/\D/g, '');
+
       const { data: { mensagem, empresa } } = await axios.post('empresa-cliente', {
-        cnpj_cliente: $cnpj,
-        nome_fantasia: fantasia,
+        cnpj_cliente: cnpjClear,
+        nome_fantasia: $fantasia,
         revenda: true,
-        razao_social: razaoSocial,
-        codigo_empresa: cdEmpresa,
-        qtd_licenca: licenca,
+        razao_social: $razaoSocial,
+        codigo_empresa: $cdEmpresa,
+        qtd_licenca: $licenca,
       });
 
       toast.success(`${mensagem}`);

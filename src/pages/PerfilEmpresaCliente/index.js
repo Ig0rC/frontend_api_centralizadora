@@ -3,7 +3,7 @@ import {
   Form, Input, Button, Switch, InputNumber,
 } from 'antd';
 import { Link } from 'react-router-dom';
-
+import { cnpj } from 'cpf-cnpj-validator';
 import { toast } from 'react-toastify';
 import SectionBar from '../../components/container';
 import TitlePage from '../../components/TitlePage';
@@ -48,8 +48,14 @@ function CadastrarEmpresa({ match }) {
 
   const updateCompany = async () => {
     try {
+      if (!cnpj.isValid(cnpjCliente)) {
+        return toast.error('CNPJ inválido');
+      }
+
+      const cnpjClear = cnpjCliente.replace(/\D/g, '');
+
       const { data: { mensagem } } = await api.put(`/empresa-cliente/${id}`, {
-        cnpj_cliente: cnpjCliente,
+        cnpj_cliente: cnpjClear,
         nome_fantasia: nomeFantasia,
         razao_social: razaoSocial,
         codigo_empresa: codigoEmpresa,
@@ -98,9 +104,9 @@ function CadastrarEmpresa({ match }) {
             >
               <p>CNPJ</p>
               <Input
-                type="number"
+                type="text"
                 id="cnpj"
-                value={cnpjCliente}
+                value={cnpj.format(cnpjCliente)}
                 onChange={({ target: { value } }) => setCnpjCliente(value)}
               />
             </label>

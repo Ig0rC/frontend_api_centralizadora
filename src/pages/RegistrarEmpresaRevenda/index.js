@@ -29,9 +29,10 @@ const RegisterEmpresaRevenda = () => {
       if (!$cnpj || !$razaoSocial || !$nomeFantasia) {
         return toast.error('Preencha todos campos');
       }
+      const cnpjClear = $cnpj.replace(/\D/g, '');
 
       const { data: { mensagem, empresa } } = await axios.post('empresa-gestor', {
-        cnpj_empresa: $cnpj,
+        cnpj_empresa: cnpjClear,
         nome_fantasia: $nomeFantasia,
         razao_social: $razaoSocial,
         revenda: $revenda,

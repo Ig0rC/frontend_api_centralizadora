@@ -34,7 +34,7 @@ const MenuUserComum = ({ children }) => {
         inlineCollapsed
       >
         <Menu.Item key="1" icon={<DesktopOutlined />}>
-          Gerenciar Empresa Revenda
+          Gerenciar Empresas Clientes
           <Link to={{ pathname: '/gerenciar-empresas' }} />
         </Menu.Item>
 

@@ -4,18 +4,20 @@ import {
 } from 'antd';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { cnpj } from 'cpf-cnpj-validator';
 import TitlePage from '../../components/TitlePage';
+
 import {
   Section, ContainerInput, ContainerButton, Container, ButtonUser,
 } from './styles';
 import api from '../../services/axios';
 
 function PerfilEmpresaRevenda({ match }) {
-  const [cnpj, setCnpj] = useState('');
-  const [razaoSocial, setRazaoSocial] = useState('');
-  const [nomeFantasia, setNomeFantasia] = useState('');
-  const [active, setActive] = useState(false);
-  const [revenda, setRevenda] = useState(false);
+  const [$cnpj, setCnpj] = useState('');
+  const [$razaoSocial, setRazaoSocial] = useState('');
+  const [$nomeFantasia, setNomeFantasia] = useState('');
+  const [$active, setActive] = useState(false);
+  const [$revenda, setRevenda] = useState(false);
   const { params: { id } } = match;
 
   useEffect(() => {
@@ -36,12 +38,18 @@ function PerfilEmpresaRevenda({ match }) {
 
   const updateCompany = async () => {
     try {
+      if (!cnpj.isValid($cnpj)) {
+        return toast.error('CNPJ inválido');
+      }
+
+      const cnpjClear = $cnpj.replace(/\D/g, '');
+
       const { data: { mensagem } } = await api.put(`/empresa-gestor/${id}`, {
-        cnpj_empresa: cnpj,
-        nome_fantasia: nomeFantasia,
-        razao_social: razaoSocial,
-        ativo: active,
-        revenda,
+        cnpj_empresa: cnpjClear,
+        nome_fantasia: $nomeFantasia,
+        razao_social: $razaoSocial,
+        ativo: $active,
+        revenda: $revenda,
       });
 
       return toast.success(`${mensagem}`);
@@ -72,9 +80,9 @@ function PerfilEmpresaRevenda({ match }) {
             >
               <p>CNPJ</p>
               <Input
-                type="number"
+                type="text"
                 id="cnpj"
-                value={cnpj}
+                value={cnpj.format($cnpj)}
                 onChange={({ target: { value } }) => setCnpj(value)}
               />
             </label>
@@ -83,7 +91,7 @@ function PerfilEmpresaRevenda({ match }) {
               <Input
                 type="text"
                 id="nome_fantasia"
-                value={nomeFantasia}
+                value={$nomeFantasia}
                 onChange={({ target: { value } }) => setNomeFantasia(value)}
               />
             </label>
@@ -98,7 +106,7 @@ function PerfilEmpresaRevenda({ match }) {
               <Input
                 type="text"
                 id="razao_social"
-                value={razaoSocial}
+                value={$razaoSocial}
                 onChange={({ target: { value } }) => setRazaoSocial(value)}
               />
             </label>
@@ -115,7 +123,7 @@ function PerfilEmpresaRevenda({ match }) {
               Ativo:
               <Switch
                 id="ativo"
-                checked={active}
+                checked={$active}
                 onChange={(e) => setActive(e)}
               />
             </label>
@@ -134,7 +142,7 @@ function PerfilEmpresaRevenda({ match }) {
               <Switch
                 style={{ width: 44 }}
                 id="ativo"
-                checked={revenda}
+                checked={$revenda}
                 onChange={(e) => setRevenda(e)}
               />
             </label>
