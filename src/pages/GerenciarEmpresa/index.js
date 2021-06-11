@@ -128,10 +128,11 @@ const GerenciarEmpresa = () => {
 
         <ContainerOption>
           <div />
+
           <div>
             <Search
               style={{
-                maxWidth: 1500, padding: 10, flex: 3, width: '100%',
+                width: '100%',
               }}
               enterButton="Buscar"
               size="large"

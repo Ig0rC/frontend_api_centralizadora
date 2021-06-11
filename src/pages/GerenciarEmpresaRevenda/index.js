@@ -120,7 +120,7 @@ function GerenciarEmpresaRevenda() {
           <div>
             <Search
               style={{
-                maxWidth: 500, flex: 1, width: '100%',
+                width: '100%',
               }}
               enterButton="Buscar"
               size="large"
@@ -135,7 +135,7 @@ function GerenciarEmpresaRevenda() {
                 size="large"
                 type="primary"
                 color="dark"
-                style={{ backgroundColor: '#274533' }}
+                style={{ backgroundColor: '#274533', border: 'none' }}
               >
                 <p style={{ display: 'flex' }}>
                   Novo <AddCircleOutlineIcon style={{ marginLeft: 2 }} />

@@ -32,6 +32,11 @@ export const DivSearch = styled.div`
     display: flex;
     align-items: center;
   }
+
+  @media (max-width: 800px){
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 `;
 
 export const DivNovo = styled.div`

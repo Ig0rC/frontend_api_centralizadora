@@ -24,32 +24,37 @@ export const Container = styled.div`
 export const ContainerOption = styled.div`
   display: flex;
   width: 100%;
-  max-width: 100%;
+  flex: 1;
   justify-content: center;
   flex-wrap: wrap-reverse;
   div {
     flex: 1;
-    max-width: 100%;
   }
 
   @media(max-width: 800px) {
     div {
       margin: 10px;
+
+      span {
+        max-width: 300px;
+      }
     }
     justify-content: center;
     flex-direction: column-reverse;
+    align-items: center;
 
   }
 `;
 
 export const DivNovo = styled.div`
   display: flex;
-  padding: 10px;
   justify-content: flex-end;
+  margin-right: 5px;
 
   button {
     padding: 8px;
     width: 81.40px;
+    border: none !important;
     background-color: #20904e;
     color: white;
     display: flex;

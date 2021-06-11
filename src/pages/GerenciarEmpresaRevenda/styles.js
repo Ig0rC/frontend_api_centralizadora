@@ -24,7 +24,6 @@ export const Container = styled.div`
 export const ContainerOption = styled.div`
   display: flex;
   width: 100%;
-  max-width: 100%;
   justify-content: center;
 
   div {
@@ -33,11 +32,13 @@ export const ContainerOption = styled.div`
     flex: 1;
     max-width: 100%;
     margin: 5px;
+
   }
 
   @media(max-width: 900px){
     flex-direction: column-reverse;
     justify-content: center;
+    align-items: center;
   }
 `;
 

@@ -14,16 +14,16 @@ import logo from '../../images/logo_v1.png';
 import history from '../../services/history';
 
 const Login = () => {
-  const { loginIn, menuOpen } = useContext(Context);
+  const { loginIn, authorization } = useContext(Context);
 
   const [user, setUser] = useState(null);
   const [password, setPassword] = useState(null);
 
   useEffect(() => {
-    if (menuOpen === true) {
+    if (authorization === true) {
       history.push('/gerenciar-empresas');
     }
-  }, [menuOpen]);
+  }, [authorization]);
 
   function entrar(e) {
     e.preventDefault();

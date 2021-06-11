@@ -109,7 +109,7 @@ function GerenciarApp() {
           <div style={{ flex: 1 }}>
             <Search
               style={{
-                maxWidth: 600, padding: 10, width: '100%',
+                width: '100%',
               }}
               loading={$loading}
               onChange={({ target: { value } }) => setSearchUser(value)}
@@ -125,7 +125,7 @@ function GerenciarApp() {
                 size="large"
                 type="primary"
                 color="dark"
-                style={{ backgroundColor: '#274533' }}
+                style={{ backgroundColor: '#274533', border: 'none' }}
               >
                 <p style={{ display: 'flex' }}>
                   Novo <AddCircleOutlineIcon style={{ marginLeft: 2 }} />
