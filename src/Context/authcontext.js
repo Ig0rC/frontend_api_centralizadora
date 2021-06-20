@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
       if (error.response) {
         const { data: { mensagem } } = error.response;
 
-        return toast.error(`${mensagem}`);
+        return toast.error(`${mensagem} olá mundo`);
       }
       return toast.error('Por favor, entre em contato com a SoftVendas');
     }

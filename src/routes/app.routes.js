@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { Context } from '../Context/authcontext';
-
 import RegistrarEmpresaCliente from '../pages/RegistrarEmpresaCliente';
 import CadastrarEmpresa from '../pages/PerfilEmpresaCliente';
 import Login from '../pages/Login';
@@ -26,6 +25,7 @@ function CustomRoute({ isPrivate, ...rest }) {
   if (loading) {
     return <h1>Loading...</h1>;
   }
+  console.log(authorization);
 
   if (isPrivate && !authorization) {
     return <Redirect to="/" />;
@@ -36,7 +36,6 @@ function CustomRoute({ isPrivate, ...rest }) {
 
 function AppRoutes() {
   return (
-
     <Switch>
       <CustomRoute exact path="/" component={Login} />
       <CustomRoute isPrivate exact path="/register-empresa-cliente" component={RegistrarEmpresaCliente} />
