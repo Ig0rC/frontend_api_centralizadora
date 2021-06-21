@@ -39,6 +39,7 @@ const AuthProvider = ({ children }) => {
 
   async function loginIn({ user, password }) {
     try {
+      axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
       const { data: { token, painel } } = await axios.post('/token', {
         usuario: user,
         senha: password,
