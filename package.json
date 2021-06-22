@@ -2,8 +2,8 @@
   "name": "webcentralizadora",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://descomplicasites.com.br/",
-  "proxy": "http://localhost:3333",
+  "homepage": "https://painel-centralizador.softvendas.com.br/",
+  "proxy": "https://api-centralizador.softvendas.com.br/",
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",

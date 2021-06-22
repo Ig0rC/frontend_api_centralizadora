@@ -39,8 +39,7 @@ const AuthProvider = ({ children }) => {
 
   async function loginIn({ user, password }) {
     try {
-      axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-      const { data: { token, painel } } = await axios.post('/api-gestor/token', {
+      const { data: { token, painel } } = await axios.post('/token', {
         usuario: user,
         senha: password,
       });
@@ -66,7 +65,7 @@ const AuthProvider = ({ children }) => {
       if (error.response) {
         const { data: { mensagem } } = error.response;
 
-        return toast.error(`${mensagem} olá mundo`);
+        return toast.error(`${mensagem}`);
       }
       return toast.error('Por favor, entre em contato com a SoftVendas');
     }

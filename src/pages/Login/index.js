@@ -28,7 +28,7 @@ const Login = () => {
   function entrar(e) {
     e.preventDefault();
     if (user === null || password === null) {
-      return toast.error('Preencha os campos');
+      return toast.error('Preencha todos os campos!');
     }
     return loginIn({ user, password });
   }

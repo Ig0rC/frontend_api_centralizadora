@@ -182,14 +182,13 @@ function CadastrarEmpresa({ match }) {
           </ContainerInput>
 
           <ContainerButton>
-            <ButtonUser
-              type="button"
-            >
-              <Link to={`/gerenciar-usuarios-vendedores/${id}`}>
-
+            <Link to={`/gerenciar-usuarios-vendedores/${id}`}>
+              <ButtonUser
+                type="button"
+              >
                 Usuários Vendedor
-              </Link>
-            </ButtonUser>
+              </ButtonUser>
+            </Link>
 
             <Button
               style={{ maxWidth: '200px', width: '100%' }}

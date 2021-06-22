@@ -17,15 +17,12 @@ export const ContainerDispositivos = styled.div`
 `;
 
 export const Dispositivos = styled.div`
-  flex: 1;
   background-color: #234531;
   display: flex;
   align-items: center;
   justify-content: space-around;
   -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
-
-
 `;
 
 export const ButtonHandleAtivo = styled.button`
