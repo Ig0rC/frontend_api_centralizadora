@@ -1,63 +1,28 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-
-  background-color: white;
-  max-width: 1280px;
-  max-height: 800px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  border-radius: 10px;
-
-  padding: 20px !important;
-  margin: 20px !important;
-
-
-  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
-  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
-`;
 export const Section = styled.section`
   display: flex;
   flex-direction: column;
+  justify-content: stretch;
+  height: 100%;
+`;
+
+export const Container = styled.div`
+  height: 100%;
+  margin: 25px 15px 25px 15px !important;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+  overflow: auto;
+`;
+
+export const DivButtonUser = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  background-color: #ececec;
-  flex: 3;
-  margin: 20px;
-`;
-
-export const ContainerInput = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  flex: 3;
-
-
-
-  @media(max-width: 657px) {
-    justify-content: center;
-  }
-`;
-
-export const ContainerButton = styled.div`
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const ButtonUser = styled.button`
-  flex: 1;
-  color: white !important;
-  background-color: #234531;
-  max-width: 200px;
-  width: 100%;
-  max-height: 32px;
-  height: 100%;
-  font-weight: 400;
 `;

@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Table, Input, Button } from 'antd';
+import { Table } from 'antd';
 import { FileSearchOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { Link } from 'react-router-dom';
-import TitlePage from '../../components/TitlePage';
+import Title from '../../components/Title';
+import MenuOption from '../../components/MenuOption';
+import { Input } from '../../styles/GenericStyles';
 import axios from '../../services/axios';
 import {
   Section,
   Container,
-  DivNovo,
-  ContainerOption,
+  Search,
 } from './styles';
-
-const { Search } = Input;
 
 const columns = [
   {
@@ -72,7 +70,6 @@ const columns = [
 
 function GerenciarUsuariosGestores({ match }) {
   const [$data, setData] = useState([]);
-  const [$loading, setLoading] = useState(false);
   const [$dataFilter, setDataFilter] = useState(null);
   const [$searchUser, setSearchUser] = useState('');
   const [$totalPage, setTotalPage] = useState(0);
@@ -98,7 +95,6 @@ function GerenciarUsuariosGestores({ match }) {
 
   useEffect(() => {
     if ($searchUser !== '') {
-      setLoading(true);
       const filterArray = $data.filter((value) => {
         const customSearchUser = $searchUser.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
@@ -108,7 +104,6 @@ function GerenciarUsuariosGestores({ match }) {
         );
       });
 
-      setLoading(false);
       return setDataFilter(filterArray);
     }
     return setDataFilter(null);
@@ -121,39 +116,17 @@ function GerenciarUsuariosGestores({ match }) {
 
   return (
     <Section>
+      <MenuOption />
       <Container>
-        <TitlePage title="Usuários Gestores" />
+        <Title title="Usuários Gestores" />
 
-        <ContainerOption>
-          <div />
-          <div>
-            <Search
-              style={{
-                maxWidth: 500, flex: 1, width: '100%',
-              }}
-              enterButton="Buscar"
-              size="large"
-              loading={$loading}
-              onChange={({ target: { value } }) => setSearchUser(value)}
-            />
-          </div>
-
-          <DivNovo>
-            <Link to={`/registrar-usuarios-gestores/${id}`}>
-              <Button
-                size="large"
-                type="primary"
-                color="dark"
-                style={{ backgroundColor: '#274533', border: 'none' }}
-              >
-                <p style={{ display: 'flex' }}>
-                  Novo <AddCircleOutlineIcon style={{ marginLeft: 2 }} />
-                </p>
-              </Button>
-            </Link>
-          </DivNovo>
-
-        </ContainerOption>
+        <Search>
+          <Input
+            type="text"
+            placeholder="Buscar..."
+            onChange={({ target: { value } }) => setSearchUser(value)}
+          />
+        </Search>
 
         <Table
           style={{ width: '100%', padding: 10, color: 'black' }}

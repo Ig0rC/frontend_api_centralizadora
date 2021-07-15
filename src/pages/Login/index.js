@@ -1,16 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Context } from '../../Context/authcontext';
-
 import {
   Container,
   ContainerCenter,
-  // ContainerButton,
-  Button, Input, ContainerInput, LogoS, ContainerImage, Background,
+  Button,
+  Input,
+  ContainerInput,
+  LogoS,
+  ContainerImage,
+  Background,
 } from './styles';
-
 import logo from '../../images/logo_v1.png';
-
 import history from '../../services/history';
 
 const Login = () => {
@@ -51,6 +52,7 @@ const Login = () => {
               onChange={({ target: { value } }) => setPassword(value)}
               placeholder="senha"
               type="password"
+              autoComplete="off"
             />
 
             <Button type="submit">entrar</Button>

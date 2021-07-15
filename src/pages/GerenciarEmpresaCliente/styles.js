@@ -1,64 +1,48 @@
 import styled from 'styled-components';
 
-export const SectionBar = styled.section`
-  flex: 1;
+export const Section = styled.section`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  justify-content: stretch;
 `;
 
 export const Container = styled.div`
- background-color: white;
-  max-width: 1700px;
-  max-height: 900px;
-  width: 100%;
   height: 100%;
+  margin: 25px 15px 25px 15px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
   border-radius: 5px;
-  margin: 10px;
-  overflow: auto;
-
   -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+  overflow: auto;
 `;
 
-export const ContainerOption = styled.div`
-  display: flex;
+export const Search = styled.div`
+  flex-basis: 50px;
   width: 100%;
-  flex: 1;
+  display: flex;
   justify-content: center;
-  flex-wrap: wrap-reverse;
-  div {
-    flex: 1;
-  }
+  align-items: center;
 
-  @media(max-width: 800px) {
-    div {
-      margin: 10px;
+    input {
+      height: 40px;
+      flex-basis: 300px;
+    }
 
-      span {
-        max-width: 300px;
+    input:hover {
+      border: 2px solid #4a7e5f;
+    }
+
+    input:focus {
+      border: 2px solid #4a7e5f;
+    }
+
+    @media(max-width: 330px){
+      input {
+        flex-basis: 200px;
       }
     }
-    justify-content: center;
-    flex-direction: column-reverse;
-    align-items: center;
-
-  }
-`;
-
-export const DivNovo = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 5px;
-
-  button {
-    padding: 8px;
-    width: 81.40px;
-    border: none !important;
-    background-color: #20904e;
-    color: white;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
 `;

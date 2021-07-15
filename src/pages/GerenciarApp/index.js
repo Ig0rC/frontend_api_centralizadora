@@ -1,15 +1,15 @@
-import { Table, Input, Button } from 'antd';
+import { Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FileSearchOutlined } from '@ant-design/icons';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-
 import { toast } from 'react-toastify';
 import axios from '../../services/axios';
 import {
-  Section, Container, DivSearch,
+  Section, Container, Search,
 } from './styles';
-import TitlePage from '../../components/TitlePage';
+import Title from '../../components/Title';
+import MenuOption from '../../components/MenuOption';
+import { Input } from '../../styles/GenericStyles';
 
 const columns = [
   {
@@ -44,8 +44,6 @@ const columns = [
     },
   },
 ];
-
-const { Search } = Input;
 
 function GerenciarApp() {
   const [$data, setData] = useState([]);
@@ -100,42 +98,17 @@ function GerenciarApp() {
 
   return (
     <Section>
+      <MenuOption />
       <Container>
-        <TitlePage title="Gerenciar App" />
-        <DivSearch>
+        <Title title="Gerenciar App" />
 
-          <div style={{ flex: 1 }} />
-
-          <div style={{ flex: 1 }}>
-            <Search
-              style={{
-                width: '100%',
-              }}
-              loading={$loading}
-              onChange={({ target: { value } }) => setSearchUser(value)}
-              enterButton="Buscar"
-              size="large"
-            />
-          </div>
-
-          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-            <Link to="/registrar-app">
-
-              <Button
-                size="large"
-                type="primary"
-                color="dark"
-                style={{ backgroundColor: '#274533', border: 'none' }}
-              >
-                <p style={{ display: 'flex' }}>
-                  Novo <AddCircleOutlineIcon style={{ marginLeft: 2 }} />
-                </p>
-              </Button>
-
-            </Link>
-          </div>
-
-        </DivSearch>
+        <Search>
+          <Input
+            onChange={({ target: { value } }) => setSearchUser(value)}
+            type="text"
+            placeholder="Buscar..."
+          />
+        </Search>
 
         <Table
           style={{ width: '100%', padding: 10 }}

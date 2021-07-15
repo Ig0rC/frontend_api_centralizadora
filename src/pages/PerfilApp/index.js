@@ -1,15 +1,15 @@
-import { Input } from 'antd';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { Input } from '../../styles/GenericStyles';
+import MenuOption from '../../components/MenuOption';
 import {
   Section,
   Container,
   Information,
-  Required,
   DivForm,
   Button,
 } from './styles';
-import TitlePage from '../../components/TitlePage';
+import Title from '../../components/Title';
 import axios from '../../services/axios';
 
 function PerfilApp({ match }) {
@@ -58,34 +58,35 @@ function PerfilApp({ match }) {
 
   return (
     <Section>
+      <MenuOption />
       <Container>
-        <TitlePage title="Editar App" />
+        <Title title="Editar App" />
         <DivForm>
           <form onSubmit={handleUpdate}>
             <div>
               <Information>
                 todos os campos são preenchimento obrigatório
-                <Required>*</Required>
+                <span>*</span>
               </Information>
 
               <div>
+                <p>Nome App</p>
                 <Input
                   onChange={({ target: { value } }) => setNome(value)}
                   value={$nome}
-                  size="large"
-                  placeholder="Nome"
+                  placeholder="nome app"
                   type="text"
                 />
               </div>
 
               <div>
+                <p>Código Constumizado</p>
                 <Input
                   onChange={
                   ({ target: { value } }) => setCodigoConstumizado(value)
-                }
-                  size="large"
+                  }
                   value={$codigoConstumizado}
-                  placeholder="Código Constumizado"
+                  placeholder="código constumizado"
                 />
               </div>
 

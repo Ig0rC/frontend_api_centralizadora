@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Input,
   Table,
 } from 'antd';
 import { Link } from 'react-router-dom';
 import { FileSearchOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
 import axios from '../../services/axios';
+import { Input } from '../../styles/GenericStyles';
 import {
   Section,
   Container,
-  DivSearch,
+  Search,
 } from './styles';
-import TitlePage from '../../components/TitlePage';
-
-const { Search } = Input;
+import Title from '../../components/Title';
+import MenuOption from '../../components/MenuOption';
 
 const columns = [
   {
@@ -114,23 +113,18 @@ function GerenciarUsuariosVendedores({ match }) {
 
   return (
     <Section>
+      <MenuOption />
       <Container>
 
-        <TitlePage title="Gerenciar Usuários Vendedores" />
+        <Title title="Gerenciar Usuários Vendedores" />
 
-        <DivSearch>
-
-          <Search
-            style={{
-              maxWidth: '500px', padding: 10, width: '100%',
-            }}
-            loading={$loading}
+        <Search>
+          <Input
+            type="text"
             onChange={({ target: { value } }) => setSearchUser(value)}
-            enterButton="Buscar"
-            size="large"
+            placeholder="Buscar..."
           />
-
-        </DivSearch>
+        </Search>
 
         <Table
           style={{ width: '100%', padding: 10 }}

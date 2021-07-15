@@ -3,7 +3,7 @@ import history from '../../services/history';
 
 function Page404() {
   useEffect(() => {
-    history.push('/gerenciar-empresas');
+    history.push('/perfil');
   }, []);
 
   return (

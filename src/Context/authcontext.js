@@ -53,14 +53,14 @@ const AuthProvider = ({ children }) => {
         setmenuAdmin(true);
         setMenuComum(false);
         localStorage.setItem('SV@painel', JSON.stringify(painel));
-        return history.push('/gerenciar-empresas');
+        return history.push('/perfil');
       }
       setmenuAdmin(false);
       setAuthorization(true);
       setMenuComum(true);
 
       localStorage.setItem('SV@painel', JSON.stringify(painel));
-      return history.push('/gerenciar-empresas');
+      return history.push('/perfil');
     } catch (error) {
       if (error.response) {
         const { data: { mensagem } } = error.response;

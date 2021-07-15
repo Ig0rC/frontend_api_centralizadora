@@ -11,23 +11,11 @@ export default createGlobalStyle`
 
     body {
         font-family: sans-serif;
+        background-color: #274533 !important;
     }
 
     html, body, #root{
-        height: 100%;
-    }
-
-    button {
-        cursor: pointer;
-        border: none;
-        border-radius: 4px;
-        font-weight: 700;
-        transition: all 300ms;
-
-    }
-
-    button:hover{
-        filter: brightness(75%)
+        height: 100% !important;
     }
 
     a {
@@ -39,7 +27,7 @@ export default createGlobalStyle`
         list-style: none;
     }
 
-  body .Toastify .Toastify__toast-container .Toastify__toast--success {
+    body .Toastify .Toastify__toast-container .Toastify__toast--success {
         background: #0197F6;
     }
 
@@ -48,25 +36,23 @@ export default createGlobalStyle`
     }
 
     ::-webkit-scrollbar-thumb {
-    background: #274533;
-    border-radius: 10px;
+      background: white;
+      border-radius: 10px;
     }
-    /* width */
     ::-webkit-scrollbar {
-      width: 7px;
+      width: 5px;
+      height: 5px;
     }
-
-    /* Track */
     ::-webkit-scrollbar-track {
       box-shadow: inset 0 0 5px grey;
-      border-radius: 10px;
+      border-radius: 51px;
       margin: 2px;
     }
 `;
 
 export const Container = styled.section`
   display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
-
 `;
