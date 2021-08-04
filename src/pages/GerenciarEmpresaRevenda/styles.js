@@ -4,7 +4,7 @@ export const Section = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: stretch;
-  height: 100%;
+  height: 950px;
 `;
 
 export const Container = styled.div`

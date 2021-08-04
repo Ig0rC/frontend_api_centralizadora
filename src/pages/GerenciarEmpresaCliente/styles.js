@@ -5,6 +5,7 @@ export const Section = styled.section`
   flex-direction: column;
   height: 100%;
   justify-content: stretch;
+  height: 950px;
 `;
 
 export const Container = styled.div`
