@@ -39,6 +39,7 @@ function FormCreateServer({ id, onToggleCreateOrUpdate }) {
   const [$senha, setSenha] = useState('');
   const [$typeApp, setTypeApp] = useState('');
   const [$nomeBanco, setNomeBanco] = useState('');
+  const [$DNS_sync_db, setDNS_sync_db] = useState('');
 
   const handleServerCreate = async (e) => {
     e.preventDefault();
@@ -62,6 +63,7 @@ function FormCreateServer({ id, onToggleCreateOrUpdate }) {
         senha: $senha,
         usuario: $usuario,
         nome_db: $nomeBanco,
+        dns_sync_db: $DNS_sync_db,
       });
       onToggleCreateOrUpdate();
       return toast.success(`${mensagem}`);
@@ -144,6 +146,15 @@ function FormCreateServer({ id, onToggleCreateOrUpdate }) {
       </div>
 
       <div>
+        <div>
+          <p>DNS para configuração</p>
+          <Input
+            type="text"
+            value={$DNS_sync_db}
+            onChange={({ target: { value } }) => setDNS_sync_db(value)}
+          />
+        </div>
+
         <div>
           Porta:
           <Input

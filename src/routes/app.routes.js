@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
-import { Switch, Redirect, Route } from 'react-router-dom';
+import {
+  Switch, Redirect, Route,
+} from 'react-router-dom';
 import { Context } from '../Context/authcontext';
 import RegisterClientCompany from '../pages/RegistrarEmpresaCliente';
 import CadastrarEmpresa from '../pages/PerfilEmpresaCliente';
@@ -54,7 +56,6 @@ function AppRoutes() {
       <CustomRoute isPrivate exact path="/perfil/" component={Perfil} />
       <CustomRoute component={Page404} />
     </Switch>
-
   );
 }
 export default AppRoutes;

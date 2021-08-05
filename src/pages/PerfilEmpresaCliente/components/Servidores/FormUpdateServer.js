@@ -41,12 +41,15 @@ function FormUpdateServer({ id }) {
   const [$typeApp, setTypeApp] = useState('');
   const [$nomeBanco, setNomeBanco] = useState('');
   const [idConfig, setIdConfig] = useState('');
+  const [$DNS_sync_db, setDNS_sync_db] = useState('');
 
   const handleSelect = async (idServer) => {
     try {
       const response = await api.get(`/config-servidor/${idServer}`);
 
-      const { banco_dados, dns, typeApp } = response.data;
+      const {
+        banco_dados, dns, typeApp, dns_sync_db,
+      } = response.data;
 
       setTypeApp(typeApp);
       setDns(dns);
@@ -55,6 +58,7 @@ function FormUpdateServer({ id }) {
       setUsuario(banco_dados.usuario);
       setSenha(banco_dados.senha);
       setNomeBanco(banco_dados.nome_db);
+      setDNS_sync_db(dns_sync_db);
       return setIdConfig(idServer);
     } catch (error) {
       if (error.response) {
@@ -87,6 +91,7 @@ function FormUpdateServer({ id }) {
         dns: $dns,
         type_app: $typeApp,
         nome_db: $nomeBanco,
+        dns_sync_db: $DNS_sync_db,
       });
       return toast.success(`${mensagem}`);
     } catch (error) {
@@ -193,6 +198,15 @@ function FormUpdateServer({ id }) {
       </div>
 
       <div>
+        <div>
+          <p>DNS para configuração</p>
+          <Input
+            type="text"
+            value={$DNS_sync_db}
+            onChange={({ target: { value } }) => setDNS_sync_db(value)}
+          />
+        </div>
+
         <div>
           Porta
           <Input
