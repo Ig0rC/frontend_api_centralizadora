@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { cnpj } from 'cpf-cnpj-validator';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 import { Input, Button, Select } from '../../../../styles/GenericStyles';
 import { Form, DivButton } from './styles';
 import api from '../../../../services/axios';
@@ -168,5 +169,9 @@ function FormUpdateClient({ id }) {
     </Form>
   );
 }
+
+FormUpdateClient.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default FormUpdateClient;

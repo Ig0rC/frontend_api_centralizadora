@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 import { Input, Select, Button } from '../../../styles/GenericStyles';
 import axios from '../../../services/axios';
 import { Information, Form, Divbutton } from './styles';
@@ -122,5 +123,9 @@ function FormUpdateUser({ id }) {
     </Form>
   );
 }
+
+FormUpdateUser.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default FormUpdateUser;

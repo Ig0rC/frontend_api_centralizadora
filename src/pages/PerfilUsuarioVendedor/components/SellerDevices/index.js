@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 import {
   Search,
   ButtonHandleAtivo,
@@ -127,5 +128,9 @@ function SellerDevices({ id }) {
     </>
   );
 }
+
+SellerDevices.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default SellerDevices;

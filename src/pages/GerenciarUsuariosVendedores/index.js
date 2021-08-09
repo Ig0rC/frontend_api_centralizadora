@@ -5,6 +5,7 @@ import {
 import { Link } from 'react-router-dom';
 import { FileSearchOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 import axios from '../../services/axios';
 import { Input } from '../../styles/GenericStyles';
 import {
@@ -140,5 +141,13 @@ function GerenciarUsuariosVendedores({ match }) {
     </Section>
   );
 }
+
+GerenciarUsuariosVendedores.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default GerenciarUsuariosVendedores;

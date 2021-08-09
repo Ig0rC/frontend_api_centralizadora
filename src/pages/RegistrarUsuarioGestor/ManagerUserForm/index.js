@@ -1,9 +1,11 @@
 import { useState } from 'react';
-
 import { toast } from 'react-toastify';
-import { Input, Select, Button } from '../../../styles/GenericStyles';
+import PropTypes from 'prop-types';
+
 import axios from '../../../services/axios';
 import history from '../../../services/history';
+
+import { Input, Select, Button } from '../../../styles/GenericStyles';
 import { Information, Form, DivButton } from './styles';
 
 function ManagerUserForm({ id }) {
@@ -102,5 +104,9 @@ function ManagerUserForm({ id }) {
     </Form>
   );
 }
+
+ManagerUserForm.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default ManagerUserForm;

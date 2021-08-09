@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Title from '../../components/Title';
 import MenuOption from '../../components/MenuOption';
 import {
@@ -8,23 +9,31 @@ import {
 import ConfigurarServer from './components/Servidores';
 import FormUpdateClient from './components/FormUpdateClient';
 
-function CadastrarEmpresa({ match }) {
+function PerfilEmpresaCliente({ match }) {
   const { params: { id } } = match;
 
   return (
     <Section>
       <MenuOption />
       <Container>
-        <Title title="Configuração do Cliente" />
+        <Title title="Configuração do cliente" />
         <FormUpdateClient id={id} />
       </Container>
 
       <Container>
-        <Title icon="CloudUploadOutlined" title="Configurando Servidor" />
+        <Title title="Configuração do servidor" />
         <ConfigurarServer id={id} />
       </Container>
     </Section>
   );
 }
 
-export default CadastrarEmpresa;
+PerfilEmpresaCliente.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
+
+export default PerfilEmpresaCliente;

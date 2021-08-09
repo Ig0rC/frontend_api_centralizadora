@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 import { Input } from '../../styles/GenericStyles';
 import MenuOption from '../../components/MenuOption';
 import {
@@ -103,5 +104,13 @@ function PerfilApp({ match }) {
     </Section>
   );
 }
+
+PerfilApp.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default PerfilApp;

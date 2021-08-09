@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   Section,
   Container,
@@ -19,5 +20,13 @@ function PerfilUsuarioGestor({ match }) {
     </Section>
   );
 }
+
+PerfilUsuarioGestor.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default PerfilUsuarioGestor;

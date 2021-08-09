@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 import { Button, Input, Select } from '../../../../styles/GenericStyles';
 import api from '../../../../services/axios';
 import { Form, ButtonsFotter } from './styles';
@@ -176,4 +177,8 @@ function FormCreateServer({ id, onToggleCreateOrUpdate }) {
   );
 }
 
+FormCreateServer.propTypes = {
+  id: PropTypes.string.isRequired,
+  onToggleCreateOrUpdate: PropTypes.func.isRequired,
+};
 export default FormCreateServer;

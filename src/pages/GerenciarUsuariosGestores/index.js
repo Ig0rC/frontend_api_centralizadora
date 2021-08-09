@@ -3,6 +3,7 @@ import { Table } from 'antd';
 import { FileSearchOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Title from '../../components/Title';
 import MenuOption from '../../components/MenuOption';
 import { Input } from '../../styles/GenericStyles';
@@ -140,5 +141,13 @@ function GerenciarUsuariosGestores({ match }) {
     </Section>
   );
 }
+
+GerenciarUsuariosGestores.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default GerenciarUsuariosGestores;

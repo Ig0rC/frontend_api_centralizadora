@@ -1,6 +1,7 @@
 import { CloudSyncOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 import { Button, Input, Select } from '../../../../styles/GenericStyles';
 import { Form, ButtonsFotter } from './styles';
 import api from '../../../../services/axios';
@@ -234,5 +235,9 @@ function FormUpdateServer({ id }) {
     </Form>
   );
 }
+
+FormUpdateServer.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default FormUpdateServer;
