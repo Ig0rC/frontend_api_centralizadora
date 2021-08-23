@@ -1,6 +1,7 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import ExitMobile from './components/ExitMobile';
 import OptionsMobile from './components/OptionsMobile';
@@ -44,5 +45,9 @@ function MenuMobile({ open }) {
     </Transition>
   );
 }
+
+MenuMobile.propTypes = {
+  open: PropTypes.bool.isRequired,
+};
 
 export default MenuMobile;

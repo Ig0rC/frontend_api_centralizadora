@@ -1,14 +1,19 @@
 import { memo } from 'react';
+import PropTypes from 'prop-types';
 import { Header } from './styles';
 
-function Title(props) {
+function Title({ title }) {
   return (
     <Header>
       <div>
-        <h1>{props.title}</h1>
+        <h1>{title}</h1>
       </div>
     </Header>
   );
 }
+
+Title.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default memo(Title);

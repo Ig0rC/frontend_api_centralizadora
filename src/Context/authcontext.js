@@ -2,6 +2,7 @@ import React, {
   createContext, useEffect, useState,
 } from 'react';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 import history from '../services/history';
 import axios from '../services/axios';
 
@@ -86,6 +87,10 @@ const AuthProvider = ({ children }) => {
       {children}
     </Context.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export { AuthProvider, Context };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import FormCreateServer from './FormCreateServer';
 import FormUpdateServer from './FormUpdateServer';
 import { Button } from '../../../../styles/GenericStyles';
@@ -35,5 +36,9 @@ function ConfigurarServer({
     </>
   );
 }
+
+ConfigurarServer.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default ConfigurarServer;

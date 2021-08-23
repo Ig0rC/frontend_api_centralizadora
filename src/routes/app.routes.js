@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import {
   Switch, Redirect, Route,
 } from 'react-router-dom';
@@ -38,7 +39,7 @@ function CustomRoute({ isPrivate, ...rest }) {
 function AppRoutes() {
   return (
     <Switch>
-      <CustomRoute exact path="/" component={Login} />
+      <CustomRoute isPrivate={false} exact path="/" component={Login} />
       <CustomRoute isPrivate exact path="/cadastrar-empresa-cliente" component={RegisterClientCompany} />
       <CustomRoute isPrivate exact path="/gerenciar-empresas" component={GerenciarEmpresa} />
       <CustomRoute isPrivate exact path="/register/:id" component={CadastrarEmpresa} />
@@ -54,8 +55,13 @@ function AppRoutes() {
       <CustomRoute isPrivate exact path="/registrar-usuarios-gestores/:id" component={RegistrarUsuarioGestor} />
       <CustomRoute isPrivate exact path="/perfil-usuarios-gestores/:id" component={PerfilUsuarioGestor} />
       <CustomRoute isPrivate exact path="/perfil/" component={Perfil} />
-      <CustomRoute component={Page404} />
+      <CustomRoute isPrivate={false} component={Page404} />
     </Switch>
   );
 }
+
+CustomRoute.propTypes = {
+  isPrivate: PropTypes.bool.isRequired,
+};
+
 export default AppRoutes;
