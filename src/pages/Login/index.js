@@ -14,7 +14,7 @@ import {
 import logo from '../../images/logo_v1.png';
 import history from '../../services/history';
 
-const Login = () => {
+function Login() {
   const { loginIn, authorization } = useContext(Context);
 
   const [user, setUser] = useState(null);
@@ -62,6 +62,6 @@ const Login = () => {
       </Container>
     </Background>
   );
-};
+}
 
 export default Login;
