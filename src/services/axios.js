@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'https://api-centralizador.softvendas.com.br/api-gestor/',
+  baseURL: 'http://localhost:5000/api-gestor/',
 });

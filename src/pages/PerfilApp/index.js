@@ -16,6 +16,7 @@ import axios from '../../services/axios';
 function PerfilApp({ match }) {
   const [$nome, setNome] = useState('');
   const [$codigoConstumizado, setCodigoConstumizado] = useState('');
+  const [$path, setPath] = useState('');
   const { params: { id } } = match;
 
   const handleUpdate = async (e) => {
@@ -28,6 +29,7 @@ function PerfilApp({ match }) {
       const { data: { mensagem } } = await axios.put(`/apptype/${id}`, {
         nome: $nome,
         codigo_constumizado: $codigoConstumizado,
+        path: $path,
       });
       return toast.success(`${mensagem}`);
     } catch (error) {
@@ -45,7 +47,8 @@ function PerfilApp({ match }) {
       try {
         const { data } = await axios.get(`/apptype/${id}`);
         setNome(data.nome);
-        return setCodigoConstumizado(data.codigo_constumizado);
+        setCodigoConstumizado(data.codigo_constumizado);
+        return setPath(data.path);
       } catch (error) {
         if (error.response) {
           const { data: { mensagem } } = error.response;
@@ -88,6 +91,17 @@ function PerfilApp({ match }) {
                   }
                   value={$codigoConstumizado}
                   placeholder="código constumizado"
+                />
+              </div>
+
+              <div>
+                <p>Path</p>
+                <Input
+                  onChange={
+                  ({ target: { value } }) => setPath(value)
+                  }
+                  value={$path}
+                  placeholder="Path do web service"
                 />
               </div>
 

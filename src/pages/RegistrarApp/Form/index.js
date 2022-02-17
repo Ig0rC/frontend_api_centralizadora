@@ -8,6 +8,7 @@ import { Input, Button } from '../../../styles/GenericStyles';
 function Form() {
   const [$nome, setNome] = useState('');
   const [$codigoConstumizado, setCodigoConstumizado] = useState('');
+  const [$path, setPath] = useState('');
 
   const handleCreateApp = (e) => {
     e.preventDefault();
@@ -20,6 +21,7 @@ function Form() {
         const { data: { mensagem, id } } = await axios.post('/apptype', {
           nome: $nome,
           codigo_constumizado: $codigoConstumizado,
+          path: $path,
         });
 
         toast.success(`${mensagem}`);
@@ -60,6 +62,17 @@ function Form() {
         }
             size="large"
             placeholder="código constumizado"
+          />
+        </div>
+
+        <div>
+          <p>Path</p>
+          <Input
+            onChange={
+          ({ target: { value } }) => setPath(value)
+        }
+            size="large"
+            placeholder="Path da API"
           />
         </div>
         <DivButton style={{ display: 'flex', justifyContent: 'center' }}>

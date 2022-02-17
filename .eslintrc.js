@@ -25,5 +25,6 @@ module.exports = {
     'react/destructuring-assignment': 'off',
     'no-unreachable': 'off',
     camelcase: 0,
+    'linebreak-style': 'off',
   },
 };
